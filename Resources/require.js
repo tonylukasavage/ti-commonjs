@@ -18,7 +18,7 @@ module.exports = function(dirname) {
 
 		modulePath = loadAsFile(newPath) || loadAsDirectory(newPath);
 		if (modulePath) {
-			Ti.API.info("require('" + p + "') --> require('" + newPath + "')");
+			Ti.API.trace("require('" + p + "') --> require('" + newPath + "')");
 			return _require(modulePath);
 		} else {
 			throw new Error('Failed to load module ' + p + ' (resolved as ' + modulePath + ')');
