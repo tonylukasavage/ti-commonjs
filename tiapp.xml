@@ -50,6 +50,9 @@
 	</mobileweb>
 	<modules>
 	</modules>
+	<plugins>
+		<plugin version="1.0">ti-node-require</plugin>
+	</plugins>
 	<deployment-targets>
 		<target device="android">true</target>
 		<target device="blackberry">false</target>

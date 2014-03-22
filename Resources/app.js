@@ -2,7 +2,7 @@ var __dirname = '/';
 var __filename = '/app.js';
 
 (function(_require) {
-	var require = _require('require')(__dirname);
+	var require = _require('ti-node-require')(__dirname);
 
 	var _ = require('underscore');
 	var tests = [
