@@ -2,17 +2,17 @@
 
 Node.js-style `require()` in Appcelerator Titanium via Alloy. For full details on what exactly this means, check out Node.js's own [documentation on modules](http://nodejs.org/api/modules.html). In addition to this added functionality, ti-node-require.js also eliminates _all_ platform-specific disparities in Titanium's CommonJS implementation.
 
-## Getting Started
+## Install
 
-Execute the following in your project's root folder. It will install the `ti-node-require.js` module in your application, as well as the `alloy.jmk` file (or modifications to existing alloy.jmk) necessary to post-process your generated runtime files.
+Execute the following in your project's root folder.
 
 ```
 npm install ti-node-require
 ```
 
-That's it. Check out the section below to see how this changes and improves `require()` in your Titanium apps.
+It will install the `ti-node-require.js` module in your application, as well as the `alloy.jmk` file (or modifications to existing alloy.jmk) necessary to post-process your generated runtime files. Check out the section below to see how this changes and improves `require()` in your Titanium apps.
 
-## Core differences
+## Core Differences
 
 Titanium's [CommonJS](http://wiki.commonjs.org/wiki/CommonJS) implementation deviates from the node.js's in a number of ways. Here's a few snippets to show the differences, and some of the things that ti-node-require.js supports that vanilla Titanium does not.
 
@@ -53,12 +53,26 @@ require('ti-mocha');
 
 #### folders as modules
 
-A module named `index.js` can be referenced just by its folder's name. Full details [here](http://nodejs.org/api/modules.html#modules_folders_as_modules).
+A module named `index.js` can be referenced just by its folder's name.
 
 ```javascript
 // assuming the module "Resources/foo/index.js" exists...
-require(/foo);
+require('/foo');
 ```
+
+Additionally, if a folder contains a `package.json`, ti-node-require.js will check the `main` property and use the path listed there to load as a module. The following, for example, will load the module located at "/foo/lib/quux.js".
+
+```javascript
+// "package.json" in "/foo"
+{
+	"main": "./lib/quux"
+}
+
+// app.js
+require('/foo');
+```
+
+Full details [here](http://nodejs.org/api/modules.html#modules_folders_as_modules).
 
 ## Caveats
 
