@@ -71,6 +71,7 @@ Additionally, if a folder contains a `package.json`, ti-node-require.js will che
 
 **/app.js**
 ```javascript
+// assuming the modules "Resources/foo/lib/quux.js" exists...
 require('/foo');
 ```
 
