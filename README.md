@@ -62,13 +62,15 @@ require('/foo');
 
 Additionally, if a folder contains a `package.json`, ti-node-require.js will check the `main` property and use the path listed there to load as a module. The following, for example, will load the module located at "/foo/lib/quux.js".
 
-```javascript
-// "package.json" in "/foo"
+**/foo/package.json**
+```json
 {
 	"main": "./lib/quux"
 }
+```
 
-// app.js
+**/app.js**
+```javascript
 require('/foo');
 ```
 
