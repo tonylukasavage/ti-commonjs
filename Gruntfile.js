@@ -75,7 +75,7 @@ module.exports = function(grunt) {
 			libDir = path.join(dstDir, 'lib');
 
 		// copy app source files
-		grunt.log.write('Copying "%s" to "%s"...', srcDir, dstDir);
+		grunt.log.write('Preparing test app at "%s"...', dstDir);
 		fs.renameSync(assetsDir, tmpAssetsDir);
 		wrench.copyDirSyncRecursive(srcDir, dstDir, { forceDelete: true });
 		fs.renameSync(tmpAssetsDir, assetsDir);
@@ -89,7 +89,6 @@ module.exports = function(grunt) {
 		//copyFileSync(path.join('node_modules', 'should', 'should.js'), path.join(libDir, 'should.js'));
 
 		// run npm install
-		grunt.log.write('Running npm install...');
 		exec('cd "' + libDir + '" && npm install', done);
 
 	});

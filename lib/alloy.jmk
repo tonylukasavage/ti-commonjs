@@ -1,3 +1,23 @@
+// CAN'T USE WRENCH
+var wrench = require('wrench'),
+	fs = require('fs'),
+	path = require('path');
+
 task('post:compile', function(config, logger){
-	console.log(config);
+	logger.info(JSON.stringify(config));
+	var platform = config.alloyConfig.platform;
+	var platformDir = platform === 'ios' ? 'iphone' : platform;
+	var srcDir = path.join(config.dir.resources, platformDir);
+	var files = wrench.readdirSyncRecursive(path.join(srcDir, 'modules'));
+	files.forEach(function(file) {
+		var fullpath = path.join(srcDir, 'modules', file);
+		if (/\.js$/.test(file) && fs.statSync(fullpath).isFile()) {
+			var filename = '/modules/' + file;
+			var code = 'var __filename="' + filename + '",__dirname="' + path.dirname(filename) + '";';
+			code += '(function(_require){var require=_require(\'ti-node-require\')(__dirname);';
+			code += fs.readFileSync(fullpath, 'utf8');
+			code += '})(require);';
+			fs.writeFileSync(fullpath, code);
+		}
+	});
 });
