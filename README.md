@@ -4,6 +4,20 @@
 
 Node.js-style `require()` in Appcelerator Titanium via Alloy. For full details on what exactly this means, check out Node.js's own [documentation on modules](http://nodejs.org/api/modules.html). In addition to this added functionality, ti-node-require.js also eliminates _all_ platform-specific disparities in Titanium's CommonJS implementation.
 
+## Why to (not) use ti-node-require.js
+
+#### cons
+
+* It will probably break your existing Titanium code, as detailed in the [Core Differences] section below. 
+
+#### pros
+
+* This is the CommonJS implementation and `require()` usage that will be supported in Titanium 4.0 (Lovingly being referred to as Ti.Next). You can start future-proofing your apps now.
+* You get all of the great features listed in the [New Functionality] section.
+* You can install and distribute modules via npm! no more digging through github or Q&A posts.
+* It becomes _much_ easier to port existing node.js modules to Titanium. Many you'll be able to use now without any modifications. 
+* It is much easier for incoming node.js developers to start using Titanium with this more familiar CommonJS implementation.
+
 ## Install [![NPM version](https://badge.fury.io/js/ti-node-require.png)](http://badge.fury.io/js/ti-node-require)
 
 Execute the following in your project's root folder.
