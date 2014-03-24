@@ -58,14 +58,14 @@ The following functionality exists only with ti-node-require.js and has no direc
 
 #### loading from `node_modules` folder
 
+> **NOTE:** This will obviously only work with node.js modules that are comptaible with the Titanium environment.
+
 Load modules installed via npm in `Resources/node_modules`. Full details [here](http://nodejs.org/api/modules.html#modules_loading_from_node_modules_folders).
 
 ```javascript
 require('underscore');
 require('ti-mocha');
 ```
-
-> **NOTE:** This will obviously only work with node.js modules that are comptaible with the Titanium environment.
 
 #### folders as modules
 
