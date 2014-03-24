@@ -14,7 +14,7 @@ Node.js-style `require()` in Appcelerator Titanium via Alloy. For full details o
 
 * This is the CommonJS implementation and `require()` usage that will be supported in Titanium 4.0 (Lovingly being referred to as Ti.Next). You can start future-proofing your apps now.
 * You get all of the great features listed in the [New Functionality](#new-functionality) section.
-* You can install and distribute modules via npm! no more digging through github or Q&A posts.
+* You can install and distribute modules via [npm](https://www.npmjs.org/)! no more digging through github or Q&A posts.
 * Eliminates all platform-specific disparities in Titanium's CommonJS implementation.
 * It becomes _much_ easier to port existing node.js modules to Titanium. Many you'll be able to use now without any modifications. 
 * It is much easier for incoming node.js developers to start using Titanium with this more familiar CommonJS implementation.
