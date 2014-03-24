@@ -8,7 +8,7 @@ Node.js-style `require()` in Appcelerator Titanium via Alloy. For full details o
 
 #### cons
 
-* It will probably break your existing Titanium code, as detailed in the [Core Differences] section below. 
+* It will probably break your existing Titanium code, as detailed in the [Core Differences](core-differences) section below. 
 
 #### pros
 
