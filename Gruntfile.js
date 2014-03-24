@@ -1,4 +1,5 @@
-var fs = require('fs'),
+var exec = require('child_process').exec,
+	fs = require('fs'),
 	path = require('path'),
 	wrench = require('wrench');
 
@@ -66,7 +67,8 @@ module.exports = function(grunt) {
 
 	// load test app
 	grunt.registerTask('app-prep', 'Load source files into example alloy app', function() {
-		var srcDir = path.join('test', 'app'),
+		var done = this.async(),
+			srcDir = path.join('test', 'app'),
 			dstDir = path.join(TMP_DIR, 'app'),
 			assetsDir = path.join(dstDir, 'assets'),
 			tmpAssetsDir = path.join(TMP_DIR, 'assets'),
@@ -78,17 +80,17 @@ module.exports = function(grunt) {
 		wrench.copyDirSyncRecursive(srcDir, dstDir, { forceDelete: true });
 		fs.renameSync(tmpAssetsDir, assetsDir);
 
-		// copy in lib
+		// copy in lib and jmk
 		copyFileSync(path.join('lib', NAME + '.js'), path.join(libDir, NAME + '.js'));
+		copyFileSync(path.join('lib', 'alloy.jmk'), path.join(dstDir, 'alloy.jmk'));
+		grunt.log.ok();
 
 		// copy in should.js
 		//copyFileSync(path.join('node_modules', 'should', 'should.js'), path.join(libDir, 'should.js'));
 
-		// copy in jmk
-
 		// run npm install
-
-		grunt.log.ok();
+		grunt.log.write('Running npm install...');
+		exec('cd "' + libDir + '" && npm install', done);
 
 	});
 

@@ -1,5 +1,5 @@
-var __dirname = '/';
-var __filename = '/app.js';
+var __dirname = '/modules';
+var __filename = '/modules/app.js';
 
 (function(_require) {
 	var require = _require('ti-node-require')(__dirname);
