@@ -4,7 +4,7 @@
 
 Node.js-style `require()` in Appcelerator Titanium via Alloy. For full details on what exactly this means, check out Node.js's own [documentation on modules](http://nodejs.org/api/modules.html). In addition to this added functionality, ti-node-require.js also eliminates _all_ platform-specific disparities in Titanium's CommonJS implementation.
 
-## Why to (not) use ti-node-require.js
+## Should I use ti-node-require.js?
 
 #### cons
 
