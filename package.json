@@ -1,0 +1,39 @@
+{
+  "name": "ti-node-require",
+  "version": "0.0.1",
+  "description": "Node.js style require() in Titanium via Alloy",
+  "bugs": {
+    "url": "https://github.com/tonylukasavage/ti-node-require/issues",
+    "email": "anthony.lukasavage@gmail.com"
+  },
+  "author": {
+    "name": "Tony Lukasavage",
+    "email": "anthony.lukasavage@gmail.com",
+    "url": "http://tonylukasavage.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tonylukasavage/ti-node-require.git"
+  },
+  "main": "./lib/ti-node-require.js",
+  "engines": {
+    "node": ">=0.10"
+  },
+  "license": "MIT",
+  "keywords": [
+    "titanium",
+    "appcelerator",
+    "alloy",
+    "nodejs",
+    "commonjs"
+  ],
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-contrib-clean": "~0.5.0",
+    "wrench": "~1.5.8",
+    "grunt-titanium": "~0.1.0",
+    "grunt-alloy": "~0.1.0",
+    "should": "~3.2.0-beta1"
+  }
+}
