@@ -20,9 +20,8 @@ task('post:compile', function(config, logger){
 
 function wrapFile(file, fullpath) {
 	var filename = '/modules/' + file;
-	var code = 'var __filename="' + filename + '",__dirname="' + path.dirname(filename) + '";';
-	code += '(function(_require){var require=_require(\'ti-node-require\')(__dirname);';
+	var code = '(function(_require,__filename,__dirname){var require=_require("ti-node-require")(__dirname);';
 	code += fs.readFileSync(fullpath, 'utf8');
-	code += '})(require);';
+	code += '})(require,"' + filename + '","' + path.dirname(filename) + '");';
 	fs.writeFileSync(fullpath, code);
 }
