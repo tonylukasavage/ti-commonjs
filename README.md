@@ -79,7 +79,9 @@ var bar = require('/bar');
 
 * [Should I use ti-node-require.js?](#should-i-use-ti-node-requirejs)
 * [How does it work?](#how-does-it-work)
-* [Why is this solution so complicated?](#why-is-this-solution-so-complicated)
+* Why is this solution so complicated?
+	* [Why can't I just create a new `require` variable?](#why-cant-i-just-create-a-new-require-variable)
+	* [Why can't I just override `require()` in my app.js?](#why-cant-i-just-override-require-in-my-appjs)
 * [What are the caveats?](#what-are-the-caveats)
 
 ### Should I use `ti-node-require.js`?
@@ -113,21 +115,17 @@ To truly make the usage seamless, though, your generated Javascript files need a
 })(require,'/','/app.js');
 ```
 
-### Why is this solution so complicated?
+### Why can't I just create a new `require` variable?
 
-So here's the reasons more straight-forward solutions would fall short.
-
-#### Why can't I just create a new `require` variable?
-
-Because you'd be conflicting with the `require()` already in the scope of every module.
+Because you'd be conflicting with the `require` already in the scope of every module.
 
 ```js
 var require = require('ti-node-require'); // CONFLICT with global require 
 ```
 
-#### Why can't I just override `require()` in my app.js? Then it will be overridden everywhere due to Titanium's scoping. 
+### Why can't I just override `require()` in my app.js?
 
-Well, you'd be right, but that's where the problem lies. The issue is that `require()` needs to be executed relative to the current file's directory when it comes to relative paths. Globally overriding `require()`, though, will make all relative paths relative to `Resources`. Let me demonstrate.
+I should just be able to take advantage of Titanium's scoping with respect to the app.js file and have `require()` overridden everywhere, right? Well, you're right, but that's where the problem lies. The issue is that `require()` needs to be executed relative to the current file's directory when it comes to relative paths. Globally overriding `require()`, though, will make all relative paths relative to `Resources`. Let me demonstrate.
 
 **app.js**
 ```js
