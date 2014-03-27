@@ -14,7 +14,9 @@ npm install ti-node-require
 
 It will install the `ti-node-require.js` module in your application, as well as the `alloy.jmk` file (or modifications to existing alloy.jmk) necessary to post-process your generated runtime files. Check out the section below to see how this changes and improves `require()` in your Titanium apps.
 
-## Core Differences
+## Usage
+
+### Core Differences
 
 Titanium's [CommonJS](http://wiki.commonjs.org/wiki/CommonJS) implementation deviates from the node.js's in a number of ways. Here's a few snippets to show the differences, and some of the things that `ti-node-require.js` supports that vanilla Titanium does not.
 
@@ -38,7 +40,7 @@ require('./someModuleInCurrentFolder');
 require('.././some/ridiculous/../../path');
 ```
 
-## New Functionality
+### New Functionality
 
 The following functionality exists only with `ti-node-require.js` and has no direct equivalent in vanilla Titanium.
 
@@ -81,11 +83,11 @@ Full details [here](http://nodejs.org/api/modules.html#modules_folders_as_module
 
 ## FAQ
 
-* [Should I use ti-node-require.js?](should-i-use-ti-node-require-js)
-* Why is this solution this complicated?
-* What are the caveats?
+* [Should I use ti-node-require.js?](#should-i-use-ti-node-requirejs)
+* [Why is this solution so complicated?](#why-is-this-solution-so-complicated)
+* [What are the caveats?](#what-are-the-caveats)
 
-## Should I use `ti-node-require.js`?
+### Should I use `ti-node-require.js`?
 
 #### cons
 
@@ -100,6 +102,10 @@ Full details [here](http://nodejs.org/api/modules.html#modules_folders_as_module
 * It becomes _much_ easier to port existing node.js modules to Titanium. Many you'll be able to use now without any modifications. 
 * It is much easier for incoming node.js developers to start using Titanium with this more familiar CommonJS implementation.
 
-## Caveats
+### Why is this solution so complicated?
+
+coming soon...
+
+### What are the caveats?
 
 * This implementation does not load modules with the `.node` extension, as those are for node.js compiled addon modules, which make no sense in the context of Titanium.
