@@ -117,7 +117,7 @@ To truly make the usage seamless, though, your generated Javascript files need a
 
 So here's the reasons more straight-forward solutions would fall short.
 
-> Why can't I just create a new `require` variable?
+#### Why can't I just create a new `require` variable?
 
 Because you'd be conflicting with the `require()` already in the scope of every module.
 
@@ -125,7 +125,7 @@ Because you'd be conflicting with the `require()` already in the scope of every 
 var require = require('ti-node-require'); // CONFLICT with global require 
 ```
 
-> Why can't I just override `require()` in my app.js? Then it will be overridden everywhere due to Titanium's scoping. 
+#### Why can't I just override `require()` in my app.js? Then it will be overridden everywhere due to Titanium's scoping. 
 
 Well, you'd be right, but that's where the problem lies. The issue is that `require()` needs to be executed relative to the current file's directory when it comes to relative paths. Globally overriding `require()`, though, will make all relative paths relative to `Resources`. Let me demonstrate.
 
