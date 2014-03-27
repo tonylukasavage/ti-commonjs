@@ -2,7 +2,7 @@
 
 > **NOT YET FUNCTIONAL**
 
-Node.js-style `require()` in Appcelerator Titanium via Alloy. For full details on what exactly this means, check out Node.js's own [documentation on modules](http://nodejs.org/api/modules.html). In addition to this added functionality, ti-node-require.js also eliminates _all_ platform-specific disparities in Titanium's CommonJS implementation.
+Node.js-style `require()` in Appcelerator Titanium via Alloy. For full details on what exactly this means, check out Node.js's own [documentation on modules](http://nodejs.org/api/modules.html). In addition to this added functionality, `ti-node-require.js` also eliminates _all_ platform-specific disparities in Titanium's CommonJS implementation.
 
 ## Install [![NPM version](https://badge.fury.io/js/ti-node-require.png)](http://badge.fury.io/js/ti-node-require)
 
@@ -16,7 +16,7 @@ It will install the `ti-node-require.js` module in your application, as well as 
 
 ## Core Differences
 
-Titanium's [CommonJS](http://wiki.commonjs.org/wiki/CommonJS) implementation deviates from the node.js's in a number of ways. Here's a few snippets to show the differences, and some of the things that ti-node-require.js supports that vanilla Titanium does not.
+Titanium's [CommonJS](http://wiki.commonjs.org/wiki/CommonJS) implementation deviates from the node.js's in a number of ways. Here's a few snippets to show the differences, and some of the things that `ti-node-require.js` supports that vanilla Titanium does not.
 
 #### absolute paths (relative to "Resources" folder)
 
@@ -30,7 +30,7 @@ require('/foo/bar');
 
 #### relative paths
 
-Titanium and ti-node-require.js have the same usage here, but ti-node-require.js eliminates Titanium's cross-platform disparities. It will work as expected on all platforms.
+Titanium and `ti-node-require.js` have the same usage here, but `ti-node-require.js` eliminates Titanium's cross-platform disparities. It will work as expected on all platforms.
 
 ```javascript
 require('../../someModule');
@@ -40,7 +40,7 @@ require('.././some/ridiculous/../../path');
 
 ## New Functionality
 
-The following functionality exists only with ti-node-require.js and has no direct equivalent in vanilla Titanium.
+The following functionality exists only with `ti-node-require.js` and has no direct equivalent in vanilla Titanium.
 
 #### loading from `node_modules` folder
 
@@ -62,7 +62,7 @@ A module named `index.js` can be referenced just by its folder's name.
 var foo = require('/foo');
 ```
 
-Additionally, if a folder contains a `package.json`, ti-node-require.js will check the `main` property and use the path listed there to load as a module. The following, for example, will load the module located at "/foo/lib/quux.js".
+Additionally, if a folder contains a `package.json`, `ti-node-require.js` will check the `main` property and use the path listed there to load as a module. The following, for example, will load the module located at "/foo/lib/quux.js".
 
 **/foo/package.json**
 ```json
@@ -85,7 +85,7 @@ Full details [here](http://nodejs.org/api/modules.html#modules_folders_as_module
 * Why is this solution this complicated?
 * What are the caveats?
 
-## Should I use ti-node-require.js?
+## Should I use `ti-node-require.js`?
 
 #### cons
 
