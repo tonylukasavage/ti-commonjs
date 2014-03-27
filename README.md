@@ -78,6 +78,7 @@ var bar = require('/bar');
 ## FAQ
 
 * [Should I use ti-node-require.js?](#should-i-use-ti-node-requirejs)
+* [How does it work?](#how-does-it-work)
 * [Why is this solution so complicated?](#why-is-this-solution-so-complicated)
 * [What are the caveats?](#what-are-the-caveats)
 
@@ -96,9 +97,61 @@ var bar = require('/bar');
 * It becomes _much_ easier to port existing node.js modules to Titanium. Many you'll be able to use now without any modifications. 
 * It is much easier for incoming node.js developers to start using Titanium with this more familiar CommonJS implementation.
 
+### How does it work?
+
+`ti-node-require.js` overides the existing Titanium `require()` to have node.js-style functionality. It sits directly on top of Titanium's existing module implementation so all module caching is preserved, no wheels are re-invented. It does this by invoking the main `ti-node-require` function with the current `__dirname` then returns a curried function as the new `require()`.
+
+To truly make the usage seamless, though, your generated Javascript files need a CommonJS wrapper, much like is done in the underlying engine itself. The wrapper looks like this: 
+
+**app.js**
+```js
+(function(_require,__dirname,__filename) {
+	var require = _require('ti-node-require')(__dirname);
+
+	// your code..
+
+})(require,'/','/app.js');
+```
+
 ### Why is this solution so complicated?
 
-coming soon...
+So here's the reasons more straight-forward solutions would fall short.
+
+> Why can't I just create a new `require` variable?
+
+Because you'd be conflicting with the `require()` already in the scope of every module.
+
+```js
+var require = require('ti-node-require'); // CONFLICT with global require 
+```
+
+> Why can't I just override `require()` in my app.js? Then it will be overridden everywhere due to Titanium's scoping. 
+
+Well, you'd be right, but that's where the problem lies. The issue is that `require()` needs to be executed relative to the current file's directory when it comes to relative paths. Globally overriding `require()`, though, will make all relative paths relative to `Resources`. Let me demonstrate.
+
+**app.js**
+```js
+require = require('ti-node-require');
+require('/1/2/3/threeModule')();
+```
+
+**1/2/3/threeModule.js**
+```js
+module.exports = function() {
+	// DISASTER! You'd think you were referencing '/1/2/3/../twoModule' here,
+	// but because the relative directory was established in the app.js
+	// you are instead referencing '/../twoModule'. This will end in a 
+	// runtime error.
+	require('../twoModule')();
+};
+```
+
+**1/2/twoModule.js**
+```js
+module.exports = function() {
+	console.log();
+};
+```
 
 ### What are the caveats?
 
