@@ -57,14 +57,7 @@ require('ti-mocha');
 
 #### folders as modules
 
-A module named `index.js` can be referenced just by its folder's name.
-
-```javascript
-// assuming the module "Resources/foo/index.js" exists...
-var foo = require('/foo');
-```
-
-Additionally, if a folder contains a `package.json`, `ti-node-require.js` will check the `main` property and use the path listed there to load as a module. The following, for example, will load the module located at "/foo/lib/quux.js".
+if a folder contains a `package.json`, `ti-node-require.js` will check the `main` property and use the path listed there to load as a module. The following, for example, will load the module located at "/foo/lib/quux.js".
 
 **/foo/package.json**
 ```json
@@ -76,6 +69,13 @@ Additionally, if a folder contains a `package.json`, `ti-node-require.js` will c
 **/app.js**
 ```javascript
 // assuming the module "Resources/foo/lib/quux.js" exists...
+var foo = require('/foo');
+```
+
+Additionally, a module named `index.js` can be referenced just by its folder's name.
+
+```javascript
+// assuming the module "Resources/foo/index.js" exists...
 var foo = require('/foo');
 ```
 
