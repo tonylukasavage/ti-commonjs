@@ -1,6 +1,6 @@
 var $R = require('ti-node-require')('/');
 
-var should = $R('./should');
+var should = $R('should/should');
 $R('ti-mocha');
 
 describe('ti-node-require', function() {
@@ -10,3 +10,5 @@ describe('ti-node-require', function() {
 	});
 
 });
+
+mocha.run();
