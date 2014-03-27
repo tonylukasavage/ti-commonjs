@@ -4,21 +4,6 @@
 
 Node.js-style `require()` in Appcelerator Titanium via Alloy. For full details on what exactly this means, check out Node.js's own [documentation on modules](http://nodejs.org/api/modules.html). In addition to this added functionality, ti-node-require.js also eliminates _all_ platform-specific disparities in Titanium's CommonJS implementation.
 
-## Should I use ti-node-require.js?
-
-#### cons
-
-* It will probably break your existing Titanium code, as detailed in the [Core Differences](#core-differences) section below. 
-
-#### pros
-
-* This is the CommonJS implementation and `require()` usage that will be supported in Titanium 4.0 (Lovingly being referred to as [Ti.Next](http://www.appcelerator.com/blog/2013/09/updates-on-ti-next/)). You can start future-proofing your apps now.
-* You get all of the great features listed in the [New Functionality](#new-functionality) section.
-* You can install and distribute modules via [npm](https://www.npmjs.org/)! no more digging through github or Q&A posts.
-* Eliminates all platform-specific disparities in Titanium's CommonJS implementation.
-* It becomes _much_ easier to port existing node.js modules to Titanium. Many you'll be able to use now without any modifications. 
-* It is much easier for incoming node.js developers to start using Titanium with this more familiar CommonJS implementation.
-
 ## Install [![NPM version](https://badge.fury.io/js/ti-node-require.png)](http://badge.fury.io/js/ti-node-require)
 
 Execute the following in your project's root folder.
@@ -64,7 +49,7 @@ The following functionality exists only with ti-node-require.js and has no direc
 Load modules installed via npm in `Resources/node_modules`. Full details [here](http://nodejs.org/api/modules.html#modules_loading_from_node_modules_folders).
 
 ```javascript
-require('underscore');
+vra _ = require('underscore');
 require('ti-mocha');
 ```
 
@@ -74,7 +59,7 @@ A module named `index.js` can be referenced just by its folder's name.
 
 ```javascript
 // assuming the module "Resources/foo/index.js" exists...
-require('/foo');
+var foo = require('/foo');
 ```
 
 Additionally, if a folder contains a `package.json`, ti-node-require.js will check the `main` property and use the path listed there to load as a module. The following, for example, will load the module located at "/foo/lib/quux.js".
@@ -89,10 +74,31 @@ Additionally, if a folder contains a `package.json`, ti-node-require.js will che
 **/app.js**
 ```javascript
 // assuming the module "Resources/foo/lib/quux.js" exists...
-require('/foo');
+var foo = require('/foo');
 ```
 
 Full details [here](http://nodejs.org/api/modules.html#modules_folders_as_modules).
+
+## FAQ
+
+* [Should I use ti-node-require.js?](should-i-use-ti-node-require-js)
+* Why is this solution this complicated?
+* What are the caveats?
+
+## Should I use ti-node-require.js?
+
+#### cons
+
+* It will probably break your existing Titanium code, as detailed in the [Core Differences](#core-differences) section below. 
+
+#### pros
+
+* This is the CommonJS implementation and `require()` usage that will be supported in Titanium 4.0 (Lovingly being referred to as [Ti.Next](http://www.appcelerator.com/blog/2013/09/updates-on-ti-next/)). You can start future-proofing your apps now.
+* You get all of the great features listed in the [New Functionality](#new-functionality) section.
+* You can install and distribute modules via [npm](https://www.npmjs.org/)! no more digging through github or Q&A posts.
+* Eliminates all platform-specific disparities in Titanium's CommonJS implementation.
+* It becomes _much_ easier to port existing node.js modules to Titanium. Many you'll be able to use now without any modifications. 
+* It is much easier for incoming node.js developers to start using Titanium with this more familiar CommonJS implementation.
 
 ## Caveats
 
