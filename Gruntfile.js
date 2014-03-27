@@ -82,7 +82,7 @@ module.exports = function(grunt) {
 
 		// copy in lib and jmk
 		copyFileSync(path.join('lib', NAME + '.js'), path.join(libDir, NAME + '.js'));
-		copyFileSync(path.join('lib', 'alloy.jmk'), path.join(dstDir, 'alloy.jmk'));
+		//copyFileSync(path.join('lib', 'alloy.jmk'), path.join(dstDir, 'alloy.jmk'));
 		grunt.log.ok();
 
 		// copy in should.js
