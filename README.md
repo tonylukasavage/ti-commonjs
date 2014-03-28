@@ -88,7 +88,7 @@ var bar = require('/bar');
 
 #### cons
 
-* It will probably break your existing Titanium code, as detailed in the [Core Differences](#core-differences) section below. 
+* It will probably break your existing Titanium code, as detailed in the [Core Differences](#core-differences) section below.
 
 #### pros
 
@@ -96,14 +96,14 @@ var bar = require('/bar');
 * You get all of the great features listed in the [New Functionality](#new-functionality) section.
 * You can install and distribute modules via [npm](https://www.npmjs.org/)! no more digging through github or Q&A posts.
 * Eliminates all platform-specific disparities in Titanium's CommonJS implementation.
-* It becomes _much_ easier to port existing node.js modules to Titanium. Many you'll be able to use now without any modifications. 
+* It becomes _much_ easier to port existing node.js modules to Titanium. Many you'll be able to use now without any modifications.
 * It is much easier for incoming node.js developers to start using Titanium with this more familiar CommonJS implementation.
 
 ### How does it work?
 
 `ti-node-require.js` overides the existing Titanium `require()` to have node.js-style functionality. It sits directly on top of Titanium's existing module implementation so all module caching is preserved, no wheels are re-invented. It does this by invoking the main `ti-node-require` function with the current `__dirname` then returns a curried function as the new `require()`.
 
-To truly make the usage seamless, though, your generated Javascript files need a CommonJS wrapper, much like is done in the underlying engine itself. The wrapper looks like this: 
+To truly make the usage seamless, though, your generated Javascript files need a CommonJS wrapper, much like is done in the underlying engine itself. The wrapper looks like this:
 
 **app.js**
 ```js
@@ -120,7 +120,7 @@ To truly make the usage seamless, though, your generated Javascript files need a
 Because you'd be conflicting with the `require` already in the scope of every module.
 
 ```js
-var require = require('ti-node-require'); // CONFLICT with global require 
+var require = require('ti-node-require'); // CONFLICT with global require
 ```
 
 ### Why can't I just override `require()` in my app.js?
@@ -138,7 +138,7 @@ require('/1/2/3/threeModule')();
 module.exports = function() {
 	// DISASTER! You'd think you were referencing '/1/2/3/../twoModule' here,
 	// but because the relative directory was established in the app.js
-	// you are instead referencing '/../twoModule'. This will end in a 
+	// you are instead referencing '/../twoModule'. This will end in a
 	// runtime error.
 	require('../twoModule')();
 };
@@ -153,6 +153,7 @@ module.exports = function() {
 
 ### What are the caveats?
 
+* `module.id` will _not_ have the module's file extension like it does in node.js. This is because the underlying Titanium implementation applies the `module.id` and makes it immutable.
 * `.json` files are not yet supported.
 * This implementation does not load modules with the `.node` extension, as those are for node.js compiled addon modules, which make no sense in the context of Titanium.
 * `ti-node-require.js` does not load from global folders (i.e., `$HOME/.node_modules`), as they are not relevant to mobile app distributions.

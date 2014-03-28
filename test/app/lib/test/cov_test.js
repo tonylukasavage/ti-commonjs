@@ -1,11 +1,12 @@
 (function(_require, __dirname, __filename) {
 	module.loaded = false;
-	module.id = __filename;
+	module.id = __filename.replace(/\.(?:js|json)$/, '');
+	module.filename = __filename;
 	module.parent = {};
 	module.children = [];
-	var require = _require('ti-node-require')(__dirname);
+	var require = _require('ti-node-require')(__dirname, module);
 	module.require = require;
-	
+
 
 	var should = require('should/should');
 	require('ti-mocha');
@@ -181,8 +182,15 @@
 			});
 
 			it('"module.id" should be the module\'s fully resolved filename', function() {
-				module.id.should.equal(__filename);
+				module.id.should.equal('/test/cov_test');
+				require('../modules/quux').id.should.equal('/modules/quux');
 			});
+
+			// https://github.com/tonylukasavage/ti-node-require/issues/8
+			it('deals with "module.id" issue in Titanium with modules named "app.js"');
+			// it('deals with "module.id" issue in Titanium with modules named "app.js"', function() {
+			//	require('../modules/app').id.should.equal('/modules/app');
+			// });
 
 			it('"module.require()" should be a function', function() {
 				should.exist(module.require);
@@ -204,7 +212,7 @@
 			});
 
 			it('"module.filename" should be the module\'s fully resolved filename', function() {
-				module.id.should.equal(__filename);
+				module.filename.should.equal(__filename);
 			});
 
 			it('"module.loaded" should be boolean', function() {
@@ -217,6 +225,7 @@
 				module.parent.should.be.an.Object;
 			});
 
+			// https://github.com/tonylukasavage/ti-node-require/issues/5
 			it('"module.parent" should equal parent module object');
 
 			it('"module.children" should be an array', function() {
@@ -224,7 +233,13 @@
 				module.children.should.be.an.Array;
 			});
 
+			// https://github.com/tonylukasavage/ti-node-require/issues/6
 			it('"module.children" should contain an array of modules required from this module');
+			// it('"module.children" should contain an array of modules required from this module', function() {
+			//	for (var i = 0; i < module.children.length; i++) {
+			//		console.log('id: ' + module.children[i].id);
+			//	}
+			// });
 
 		});
 
