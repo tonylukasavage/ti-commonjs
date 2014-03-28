@@ -5,7 +5,22 @@
 	var should = require('should/should');
 	require('ti-mocha');
 
-	console.log('module.id: ' + module.id);
+	function testQuux(o) {
+		should.exist(o);
+		o.should.be.a.Function;
+		o().should.equal('quux');
+	}
+
+	function testApp(o) {
+		should.exist(o);
+		o.should.equal('app');
+	}
+
+	function testFoobar(o) {
+		should.exist(o);
+		o.should.be.a.Function;
+		o().should.equal('/modules/foo/bar.js');
+	}
 
 	describe('ti-node-require', function() {
 
@@ -16,11 +31,16 @@
 				require.should.be.a.Function;
 			});
 
-			it('should load modules via absolute paths', function() {
-				var quux = require('/modules/quux');
-				should.exist(quux);
-				quux.should.be.a.Function;
-				quux().should.equal('quux');
+			it('should load modules via absolute paths with no extension', function() {
+				testQuux(require('/modules/quux'));
+				testApp(require('/modules/app'));
+				testFoobar(require('/modules/foo/bar'));
+			});
+
+			it('should load modules via absolute paths with js extension', function() {
+				testQuux(require('/modules/quux.js'));
+				testApp(require('/modules/app.js'));
+				testFoobar(require('/modules/foo/bar.js'));
 			});
 
 		});
