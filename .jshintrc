@@ -22,15 +22,13 @@
 		"task": false,
 		"Ti": false,
 		"Titanium": false,
+		"mocha": false,
 		"describe": false,
 		"it": false,
 		"before": false,
 		"beforeEach": false,
 		"after": false,
 		"afterEach": false,
-		"$": false,
-		"THREE": false,
-		"Stats": false,
-		"requestAnimationFrame": true
+		"$": false
 	}
 }
