@@ -125,14 +125,14 @@
 
 			it('"require.main" should be an object');
 			// it('"require.main" should be an object', function() {
-			// 	should.exist(require.main);
-			// 	require.main.should.be.an.Object;
+			//	should.exist(require.main);
+			//	require.main.should.be.an.Object;
 			// });
 
 			it('"require.main" should be equal to the main module (app.js)');
 			// it('"require.main" should be equal to the main module (app.js)', function() {
-			// 	should.exist(require.main);
-			// 	require.main.should.equal(require('/app'));
+			//	should.exist(require.main);
+			//	require.main.should.equal(require('/app'));
 			// });
 
 		});
