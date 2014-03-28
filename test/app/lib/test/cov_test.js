@@ -24,6 +24,20 @@
 		o().should.equal('/modules/foo/bar.js');
 	}
 
+	function testThrow(o) {
+		var threw = false;
+		try {
+			require(o);
+		} catch (e) {
+			threw = true;
+			should.exist(e);
+			e.message.should.match(/find module/);
+			should.exist(e.code);
+			e.code.should.equal('MODULE_NOT_FOUND');
+		}
+		threw.should.be.true;
+	}
+
 	describe('ti-node-require', function() {
 
 		describe('require()', function() {
@@ -33,12 +47,12 @@
 				require.should.be.a.Function;
 			});
 
-			it('"require.resolve" should be a function', function() {
+			it('"require.resolve()" should be a function', function() {
 				should.exist(require.resolve);
 				require.resolve.should.be.a.Function;
 			});
 
-			it('"require.resolve" should return the full path to modules', function() {
+			it('"require.resolve()" should return the full path to modules', function() {
 				should.exist(require.resolve);
 				require.resolve('/modules/quux.js').should.equal('/modules/quux.js');
 				require.resolve('/modules/quux').should.equal('/modules/quux.js');
@@ -73,6 +87,33 @@
 				testFoobar(require(CRAZY_PATH));
 			});
 
+			it('should load modules via relative paths with js extension', function() {
+				testQuux(require('../modules/quux.js'));
+				testApp(require('../modules/app.js'));
+				testFoobar(require('../modules/foo/bar.js'));
+
+				// and one crazy test
+				testFoobar(require(CRAZY_PATH + '.js'));
+			});
+
+			it('should load modules via relative paths with json extension');
+
+			it('should load folder as module via package.json');
+
+			it('should load folder as module via index.js');
+
+			it('should load module from node_modules folder');
+
+			it('should throw when it can\'t load a module', function() {
+				testThrow('/i/dont/exist');
+				testThrow('../../../..');
+				testThrow('../modules');
+				testThrow('/modules');
+				testThrow('someModule');
+				testThrow('../modules/foo');
+				testThrow('../modules/foo/bar.json');
+			});
+
 		});
 
 		describe('free variables', function() {
@@ -101,17 +142,17 @@
 				module.id.should.equal(__filename);
 			});
 
-			it('"module.require" should be a function', function() {
+			it('"module.require()" should be a function', function() {
 				should.exist(module.require);
 				module.require.should.be.a.Function;
 			});
 
-			it('"module.require" should equal this module\'s "require"', function() {
+			it('"module.require()" should equal this module\'s "require"', function() {
 				should.exist(module.require);
 				module.require.should.equal(require);
 			});
 
-			it('"module.require" should require modules as though called from this module');
+			it('"module.require()" should require modules as though called from this module');
 
 			it('"module.filename" should be the module\'s fully resolved filename', function() {
 				module.id.should.equal(__filename);
