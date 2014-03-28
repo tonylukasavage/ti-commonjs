@@ -1,3 +1,3 @@
 module.exports = function() {
-	console.log('quux');
+	return 'quux';
 };
