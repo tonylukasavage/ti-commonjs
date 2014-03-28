@@ -1,6 +1,11 @@
 (function(_require, __dirname, __filename) {
+	module.loaded = false;
+	module.id = __filename;
+	module.parent = {};
+	module.children = [];
 	var require = _require('ti-node-require')(__dirname);
-
+	module.require = require;
+	
 
 	var should = require('should/should');
 	require('ti-mocha');
@@ -98,9 +103,25 @@
 
 			it('should load modules via relative paths with json extension');
 
-			it('should load folder as module via package.json');
+			it('should load folder as module via package.json', function() {
+				var twoModule = require('../modules/1');
+				should.exist(twoModule);
+				twoModule().should.equal('twoModule.js');
 
-			it('should load folder as module via index.js');
+				twoModule = require('/modules/1');
+				should.exist(twoModule);
+				twoModule().should.equal('twoModule.js');
+			});
+
+			it('should load folder as module via index.js', function() {
+				var twoModule = require('../modules/1/2');
+				should.exist(twoModule);
+				twoModule().should.equal('index.js');
+
+				twoModule = require('/modules/1/2');
+				should.exist(twoModule);
+				twoModule().should.equal('index.js');
+			});
 
 			it('should load module from node_modules folder', function() {
 				var _should = require('should/should');
@@ -173,7 +194,14 @@
 				module.require.should.equal(require);
 			});
 
-			it('"module.require()" should require modules as though called from this module');
+			it('"module.require()" should require modules as though called from this module', function() {
+				should.exist(module.require);
+				var mod = require('../modules/moduleRequire');
+				should.exist(mod);
+				var result = mod(module);
+				should.exist(result);
+				result.should.equal('from /modules/moduleRequire.js');
+			});
 
 			it('"module.filename" should be the module\'s fully resolved filename', function() {
 				module.id.should.equal(__filename);
@@ -193,7 +221,7 @@
 
 			it('"module.children" should be an array', function() {
 				should.exist(module.children);
-				module.parent.should.be.an.Array;
+				module.children.should.be.an.Array;
 			});
 
 			it('"module.children" should contain an array of modules required from this module');
@@ -205,4 +233,5 @@
 	mocha.run();
 
 
+	module.loaded = true;
 })(require, '/test', '/test/cov_test.js');
