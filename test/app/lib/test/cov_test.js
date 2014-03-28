@@ -5,6 +5,8 @@
 	var should = require('should/should');
 	require('ti-mocha');
 
+	var CRAZY_PATH = '../../../../././../modules/.././modules/foo/../foo/./bar';
+
 	function testQuux(o) {
 		should.exist(o);
 		o.should.be.a.Function;
@@ -31,6 +33,23 @@
 				require.should.be.a.Function;
 			});
 
+			it('"require.resolve" should be a function', function() {
+				should.exist(require.resolve);
+				require.resolve.should.be.a.Function;
+			});
+
+			it('"require.resolve" should return the full path to modules', function() {
+				should.exist(require.resolve);
+				require.resolve('/modules/quux.js').should.equal('/modules/quux.js');
+				require.resolve('/modules/quux').should.equal('/modules/quux.js');
+				require.resolve('../modules/quux').should.equal('/modules/quux.js');
+				require.resolve('../modules/quux.js').should.equal('/modules/quux.js');
+				require.resolve('should').should.equal('/node_modules/should/lib/node.js');
+				require.resolve('should/should.js').should.equal('/node_modules/should/should.js');
+				require.resolve('should/should').should.equal('/node_modules/should/should.js');
+				require.resolve(CRAZY_PATH).should.equal('/modules/foo/bar.js');
+			});
+
 			it('should load modules via absolute paths with no extension', function() {
 				testQuux(require('/modules/quux'));
 				testApp(require('/modules/app'));
@@ -41,6 +60,17 @@
 				testQuux(require('/modules/quux.js'));
 				testApp(require('/modules/app.js'));
 				testFoobar(require('/modules/foo/bar.js'));
+			});
+
+			it('should load modules via absolute paths with json extension');
+
+			it('should load modules via relative paths with no extension', function() {
+				testQuux(require('../modules/quux'));
+				testApp(require('../modules/app'));
+				testFoobar(require('../modules/foo/bar'));
+
+				// and one crazy test
+				testFoobar(require(CRAZY_PATH));
 			});
 
 		});
