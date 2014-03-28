@@ -1,14 +1,6 @@
-var $R = require('ti-node-require')('/');
+(function(_require, __dirname, __filename) {
+	var require = _require('ti-node-require')(__dirname);
 
-var should = $R('should/should');
-$R('ti-mocha');
+	require('./test/cov_test');
 
-describe('ti-node-require', function() {
-
-	it('should work', function() {
-		return true;
-	});
-
-});
-
-mocha.run();
+})(require, '/', '/app.js');
