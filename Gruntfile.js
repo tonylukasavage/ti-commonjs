@@ -85,9 +85,6 @@ module.exports = function(grunt) {
 		//copyFileSync(path.join('lib', 'alloy.jmk'), path.join(dstDir, 'alloy.jmk'));
 		grunt.log.ok();
 
-		// copy in should.js
-		//copyFileSync(path.join('node_modules', 'should', 'should.js'), path.join(libDir, 'should.js'));
-
 		// run npm install
 		exec('cd "' + libDir + '" && npm install', done);
 

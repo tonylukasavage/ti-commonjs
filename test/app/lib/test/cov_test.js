@@ -102,7 +102,16 @@
 
 			it('should load folder as module via index.js');
 
-			it('should load module from node_modules folder');
+			it('should load module from node_modules folder', function() {
+				var _should = require('should/should');
+				should.exist(_should);
+				_should.should.be.a.Function;
+
+				var _ = require('underscore');
+				(function() {
+					_.each([1,2,3], function(n) { n.should.equal(n); });
+				}).should.not.throw();
+			});
 
 			it('should throw when it can\'t load a module', function() {
 				testThrow('/i/dont/exist');
@@ -113,6 +122,18 @@
 				testThrow('../modules/foo');
 				testThrow('../modules/foo/bar.json');
 			});
+
+			it('"require.main" should be an object');
+			// it('"require.main" should be an object', function() {
+			// 	should.exist(require.main);
+			// 	require.main.should.be.an.Object;
+			// });
+
+			it('"require.main" should be equal to the main module (app.js)');
+			// it('"require.main" should be equal to the main module (app.js)', function() {
+			// 	should.exist(require.main);
+			// 	require.main.should.equal(require('/app'));
+			// });
 
 		});
 
