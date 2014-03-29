@@ -183,7 +183,6 @@
 
 			it('"module.id" should be the module\'s fully resolved filename', function() {
 				module.id.should.equal('/test/cov_test');
-				require('../modules/quux').id.should.equal('/modules/quux');
 			});
 
 			// https://github.com/tonylukasavage/ti-node-require/issues/8
