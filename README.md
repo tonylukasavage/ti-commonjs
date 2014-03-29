@@ -39,7 +39,7 @@ var _ = require('underscore');
 require('ti-mocha');
 ```
 
-You can also target specific files in those npm installations. For example, let's take [should.js](https://github.com/visionmedia/should.js/). While you can't require it directly in Titanium, due to its reliance on node.js libraries, you can reference the single-file Titanium-compatible version embedded in the installation.
+You can also target specific files within those npm installations. For example, let's take [should.js](https://github.com/visionmedia/should.js/). While you can't require it directly in Titanium, due to its reliance on node.js libraries, you can reference the single-file Titanium-compatible version embedded in the installation. This tactic works with almost every npm distributed module that has a browser-compatible version.
 
 ```js
 var should = require('should'); // ERROR - missing node.js libraries
@@ -66,6 +66,33 @@ var foo = require('/foo');
 // assuming the module "Resources/bar/index.js" exists...
 var bar = require('/bar');
 ```
+
+### `require.resolve()`
+
+Get the full path resolved path to a module.
+
+```js
+require.resolve('/foo/bar.js') === require.resolve('/foo/bar') === require.resolve('/.././foo/../foo/bar.js')
+```
+
+### load module with or without extensions
+
+```js
+require('/foo') === require('/foo.js')
+```
+
+### `module` and `exports` objects
+
+Titanium's implementation gives limited access to the properties of the `module` object. With `ti-node-require.js` you have full access to the following properties and functions. Full details [here](http://nodejs.org/api/modules.html#modules_the_module_object).
+
+* [module.exports](http://nodejs.org/api/modules.html#modules_module_exports)
+* [exports](http://nodejs.org/api/modules.html#modules_exports_alias)
+* [module.require(id)](http://nodejs.org/api/modules.html#modules_module_require_id)
+* [module.id](http://nodejs.org/api/modules.html#modules_module_id)
+* [module.filename](http://nodejs.org/api/modules.html#modules_module_filename)
+* [module.loaded](http://nodejs.org/api/modules.html#modules_module_loaded)
+* [module.parent](http://nodejs.org/api/modules.html#modules_module_parent) (_not yet implemented_)
+* [module.children](http://nodejs.org/api/modules.html#modules_module_children) (_not yet implemented_)
 
 ## FAQ
 
