@@ -24,8 +24,6 @@ require('/foo/bar');
 
 ### relative paths
 
-Titanium and `ti-node-require.js` have the same usage here, but `ti-node-require.js` eliminates Titanium's cross-platform disparities. It will work as expected on all platforms.
-
 ```javascript
 require('../../someModule');
 require('./someModuleInCurrentFolder');
@@ -37,9 +35,16 @@ require('.././some/ridiculous/../../path');
 Load modules installed via npm in `Resources/node_modules`. Full details [here](http://nodejs.org/api/modules.html#modules_loading_from_node_modules_folders).
 
 ```javascript
-var _ = require('underscore'),
-	should = require('should/should');
+var _ = require('underscore');
 require('ti-mocha');
+```
+
+You can also target specific files in those npm installations. For example, let's take [should.js](https://github.com/visionmedia/should.js/). While you can't require it directly in Titanium, due to its reliance on node.js libraries, you can reference the single-file Titanium-compatible version embedded in the installation.
+
+```js
+var should = require('should'); // ERROR - missing node.js libraries
+
+var should = require('should/should'); // WOOHOO! It works in Titanium.
 ```
 
 ### folders as modules
