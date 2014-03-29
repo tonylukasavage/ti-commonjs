@@ -16,21 +16,13 @@ It will install the `ti-node-require.js` module in your application, as well as 
 
 ## Usage
 
-### Core Differences
-
-Titanium's [CommonJS](http://wiki.commonjs.org/wiki/CommonJS) implementation deviates from the node.js's in a number of ways. Here's a few snippets to show the differences, and some of the things that `ti-node-require.js` supports that vanilla Titanium does not.
-
-#### absolute paths (relative to "Resources" folder)
+### absolute paths (relative to "Resources" folder)
 
 ```javascript
-// Titanium
-require('foo/bar');
-
-// ti-node-require.js
 require('/foo/bar');
 ```
 
-#### relative paths
+### relative paths
 
 Titanium and `ti-node-require.js` have the same usage here, but `ti-node-require.js` eliminates Titanium's cross-platform disparities. It will work as expected on all platforms.
 
@@ -40,33 +32,28 @@ require('./someModuleInCurrentFolder');
 require('.././some/ridiculous/../../path');
 ```
 
-### New Functionality
-
-The following functionality exists only with `ti-node-require.js` and has no direct equivalent in vanilla Titanium.
-
-#### loading from `node_modules` folder
-
-> **NOTE:** This will obviously only work with node.js modules that are comptaible with the Titanium environment.
+### loading from `node_modules` folder
 
 Load modules installed via npm in `Resources/node_modules`. Full details [here](http://nodejs.org/api/modules.html#modules_loading_from_node_modules_folders).
 
 ```javascript
-vra _ = require('underscore');
+var _ = require('underscore'),
+	should = require('should/should');
 require('ti-mocha');
 ```
 
-#### folders as modules
+### folders as modules
 
-if a folder contains a `package.json`, `ti-node-require.js` will check the `main` property and use the path listed there to load as a module. Additionally, a module named `index.js` can be referenced just by its folder's name. The following example demonstrates both uses. Full details [here](http://nodejs.org/api/modules.html#modules_folders_as_modules).
+If a folder contains a `package.json`, the path in its `main` property will be loaded as a module. Additionally, a module named `index.js` can be referenced just by its folder's name. The following example demonstrates both uses. Full details [here](http://nodejs.org/api/modules.html#modules_folders_as_modules).
 
-**/foo/package.json**
+#### /foo/package.json
 ```json
 {
 	"main": "./lib/quux"
 }
 ```
 
-**/app.js**
+#### /app.js
 ```javascript
 // assuming the module "Resources/foo/lib/quux.js" exists...
 var foo = require('/foo');
@@ -88,7 +75,14 @@ var bar = require('/bar');
 
 #### cons
 
-* It will probably break your existing Titanium code, as detailed in the [Core Differences](#core-differences) section below.
+* It will probably break your existing Titanium code. The primary reason for this is fundamental difference in specifying absolute paths with Titanium's `require()` vs. `ti-node-require.js`. This example illustrates, assuming that a module exists at `Resources/foo/bar.js`:
+```js
+// This is how it's done with Titanium's require()
+require('foo/bar');
+
+// and this is how its done with ti-node-require.js
+require('/foo/bar');
+```
 
 #### pros
 
