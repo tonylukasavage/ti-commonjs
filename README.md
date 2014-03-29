@@ -67,12 +67,12 @@ var foo = require('/foo');
 var bar = require('/bar');
 ```
 
-### `require.resolve()`
+### require.resolve()
 
 Get the full path resolved path to a module.
 
 ```js
-require.resolve('/foo/bar.js') === require.resolve('/foo/bar') === require.resolve('/.././foo/../foo/bar.js')
+require.resolve('/foo/bar.js') === require.resolve('/.././foo/../foo/bar');
 ```
 
 ### load module with or without extensions
@@ -81,7 +81,7 @@ require.resolve('/foo/bar.js') === require.resolve('/foo/bar') === require.resol
 require('/foo') === require('/foo.js')
 ```
 
-### `module` and `exports` objects
+### `module` object
 
 Titanium's implementation gives limited access to the properties of the `module` object. With `ti-node-require.js` you have full access to the following properties and functions. Full details [here](http://nodejs.org/api/modules.html#modules_the_module_object).
 
