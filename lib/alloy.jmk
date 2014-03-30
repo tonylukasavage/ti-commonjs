@@ -3,6 +3,8 @@ var wrench = require('wrench'),
 	fs = require('fs'),
 	path = require('path');
 
+var NODE_MODULES_REGEX = /(?:^|\/)node_modules/;
+
 task('post:compile', function(config, logger){
 	logger.info(JSON.stringify(config));
 
@@ -12,7 +14,7 @@ task('post:compile', function(config, logger){
 
 	files.forEach(function(file) {
 		var fullpath = path.join(srcDir, file);
-		if (/\.js$/.test(file) && fs.statSync(fullpath).isFile()) {
+		if (/\.js$/.test(file) && fs.statSync(fullpath).isFile() && !NODE_MODULES_REGEX.test(file)) {
 			wrapFile(file, fullpath);
 		}
 	});
