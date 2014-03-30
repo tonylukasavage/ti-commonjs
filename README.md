@@ -94,6 +94,14 @@ Titanium's implementation gives limited access to the properties of the `module`
 * [module.parent](http://nodejs.org/api/modules.html#modules_module_parent) (_not yet implemented_)
 * [module.children](http://nodejs.org/api/modules.html#modules_module_children) (_not yet implemented_)
 
+### Use the Titanium require()
+
+Just in case you still need to use the old `require()` from Titanium, it's still accessible via `tirequire()`.
+
+```js
+require('/foo') === tirequire('foo')
+```
+
 ## FAQ
 
 * [Should I use ti-node-require.js?](#should-i-use-ti-node-requirejs)
