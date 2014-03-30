@@ -72,7 +72,8 @@ module.exports = function(grunt) {
 			dstDir = path.join(TMP_DIR, 'app'),
 			assetsDir = path.join(dstDir, 'assets'),
 			tmpAssetsDir = path.join(TMP_DIR, 'assets'),
-			libDir = path.join(dstDir, 'lib');
+			libDir = path.join(dstDir, 'lib'),
+			tnrDir = path.join(libDir, 'node_modules', 'ti-node-require', 'lib');
 
 		// copy app source files
 		grunt.log.write('Preparing test app at "%s"...', dstDir);
@@ -81,7 +82,8 @@ module.exports = function(grunt) {
 		fs.renameSync(tmpAssetsDir, assetsDir);
 
 		// copy in lib and jmk
-		copyFileSync(path.join('lib', NAME + '.js'), path.join(libDir, NAME + '.js'));
+		wrench.mkdirSyncRecursive(tnrDir, 0755);
+		copyFileSync(path.join('lib', NAME + '.js'), path.join(tnrDir, NAME + '.js'));
 		copyFileSync(path.join('lib', 'alloy.jmk'), path.join(dstDir, 'alloy.jmk'));
 		grunt.log.ok();
 

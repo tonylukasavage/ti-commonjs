@@ -41,7 +41,7 @@ function wrapFile(file, fullpath) {
 	code += 'module.filename=__filename;';
 	code += 'module.parent={};';
 	code += 'module.children=[];';
-	code += 'var require=tirequire("ti-node-require")(__dirname,module);';
+	code += 'var require=tirequire("node_modules/ti-node-require/lib/ti-node-require")(__dirname,module);';
 	code += 'module.require=require;';
 
 	// This is a hack to fix alloy-based requires. Rather than changing the format of the path
