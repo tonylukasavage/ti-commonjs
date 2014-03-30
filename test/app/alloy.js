@@ -4,14 +4,15 @@
 	};
 	var exports = module.exports;
 	module.loaded = false;
-	module.id = __filename;
+	module.id = __filename.replace(/\.(?:js|json)$/, '');
+	module.filename = __filename;
 	module.parent = {};
 	module.children = [];
 	var require = _require('ti-node-require')(__dirname, module);
 	module.require = require;
 
 
-	require('./test/cov_test');
+	require('./test');
 
 
 	module.loaded = true;

@@ -159,9 +159,9 @@
 
 		});
 
-		describe('free variables', function() {
+		describe('module', function() {
 
-			it('"module" should be an object', function() {
+			it('should be an object', function() {
 				should.exist(module);
 				module.should.be.an.Object;
 			});
@@ -171,25 +171,9 @@
 				module.exports.should.be.an.Object;
 			});
 
-			it('"exports" should be an object', function() {
-				should.exist(exports);
-				exports.should.be.an.Object;
-			});
-
-			it('"exports" should equal "module.exports"', function() {
-				should.exist(exports);
-				exports.should.equal(module.exports);
-			});
-
 			it('"module.id" should be the module\'s fully resolved filename', function() {
 				module.id.should.equal('/test/cov_test');
 			});
-
-			// https://github.com/tonylukasavage/ti-node-require/issues/8
-			it('deals with "module.id" issue in Titanium with modules named "app.js"');
-			// it('deals with "module.id" issue in Titanium with modules named "app.js"', function() {
-			//	require('../modules/app').id.should.equal('/modules/app');
-			// });
 
 			it('"module.require()" should be a function', function() {
 				should.exist(module.require);
@@ -239,6 +223,21 @@
 			//		console.log('id: ' + module.children[i].id);
 			//	}
 			// });
+
+		});
+
+		describe('exports', function() {
+
+			it('should be an object', function() {
+				should.exist(exports);
+				exports.should.be.an.Object;
+			});
+
+			it('should equal "module.exports"', function() {
+				should.exist(exports);
+				should.exist(module.exports);
+				exports.should.equal(module.exports);
+			});
 
 		});
 
