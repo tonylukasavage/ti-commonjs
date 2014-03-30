@@ -162,7 +162,7 @@ describe('ti-node-require', function() {
 		});
 
 		it('"module.id" should be the module\'s fully resolved filename', function() {
-			module.id.should.equal('/test/cov_test');
+			module.id.should.equal('/test/index');
 		});
 
 		it('"module.require()" should be a function', function() {

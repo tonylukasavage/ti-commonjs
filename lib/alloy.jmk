@@ -3,25 +3,25 @@ var wrench = require('wrench'),
 	fs = require('fs'),
 	path = require('path');
 
+var NAME = 'ti-node-require.js';
 var NODE_MODULES_REGEX = /(?:^|\/)node_modules/;
 
 task('post:compile', function(config, logger){
-	logger.info(JSON.stringify(config));
-
 	var platformDir = config.alloyConfig.platform === 'ios' ? 'iphone' : config.alloyConfig.platform;
 	var srcDir = path.join(config.dir.resources, platformDir);
 	var files = wrench.readdirSyncRecursive(srcDir);
 
 	files.forEach(function(file) {
 		var fullpath = path.join(srcDir, file);
-		if (/\.js$/.test(file) && fs.statSync(fullpath).isFile() && !NODE_MODULES_REGEX.test(file)) {
+		if (file !== NAME && /\.js$/.test(file) && fs.statSync(fullpath).isFile() &&
+			!NODE_MODULES_REGEX.test(file)) {
 			wrapFile(file, fullpath);
 		}
 	});
 });
 
 function wrapFile(file, fullpath) {
-	var filename = '/modules/' + file;
+	var filename = '/' + file;
 	var code = '(function(tirequire,__dirname,__filename){';
 	if (file === 'app.js') {
 		code += 'var module={exports:{}};';
@@ -34,7 +34,12 @@ function wrapFile(file, fullpath) {
 	code += 'module.children=[];';
 	code += 'var require=tirequire("ti-node-require")(__dirname,module);';
 	code += 'module.require=require;';
-	code += fs.readFileSync(fullpath, 'utf8');
+
+	// This is a hack to fix alloy-based requires. Rather than changing the format of the path
+	// to comply with ti-node-require.js, I simple have it continue to use the Titanium
+	// require() via tirequire().
+	code += fs.readFileSync(fullpath, 'utf8').replace(/require\((['"])alloy/g, 'tirequire($1alloy');
+
 	code += '\nmodule.loaded=true;})(require,"' + path.dirname(filename) + '","' + filename + '");';
 	fs.writeFileSync(fullpath, code);
 }
