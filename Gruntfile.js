@@ -88,7 +88,16 @@ module.exports = function(grunt) {
 		grunt.log.ok();
 
 		// run npm install
-		exec('cd "' + libDir + '" && npm install', done);
+		exec('cd "' + libDir + '" && npm install', function(err, stdout, stderr) {
+			if (err) {
+				return done(err);
+			}
+
+			// copy in the fake module
+			var fakeModuleDir = path.join(libDir, 'node_modules', 'fake_module');
+			wrench.copyDirSyncRecursive(path.join('test', 'fake_module'), fakeModuleDir);
+			done();
+		});
 
 	});
 

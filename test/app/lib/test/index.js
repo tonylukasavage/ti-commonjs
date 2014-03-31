@@ -147,6 +147,12 @@ describe('ti-node-require', function() {
 		//	require.main.should.equal(require('/app'));
 		// });
 
+		it('handles nested dependencies', function() {
+			var str = require('fake_module')();
+			should.exist(str);
+			str.should.equal('fake_deep');
+		});
+
 	});
 
 	describe('module', function() {

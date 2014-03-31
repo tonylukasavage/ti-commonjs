@@ -187,8 +187,7 @@ module.exports = function() {
 
 ### What are the caveats?
 
-* `module.id` will _not_ have the module's file extension like it does in node.js. This is because the underlying Titanium implementation applies the `module.id` and makes it immutable.
+* `module.id` will _not_ have the module's file extension like it does in node.js. This is because the underlying Titanium implementation applies the `module.id` without the extension and makes it immutable.
 * `.json` files are not yet supported.
 * This implementation does not load modules with the `.node` extension, as those are for node.js compiled addon modules, which make no sense in the context of Titanium.
 * `ti-node-require.js` does not load from global folders (i.e., `$HOME/.node_modules`), as they are not relevant to mobile app distributions.
-* The `node_modules` folder is only supported at the root of the `Resources` folder. Therefore, `require.paths` is undefined.

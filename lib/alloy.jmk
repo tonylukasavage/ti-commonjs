@@ -13,8 +13,8 @@ task('post:compile', function(config, logger){
 
 	files.forEach(function(file) {
 		var fullpath = path.join(srcDir, file);
-		if (file !== NAME && /\.js$/.test(file) && fs.statSync(fullpath).isFile() &&
-			!NODE_MODULES_REGEX.test(file)) {
+		if (!/ti\-node\-require\.js$/.test(file) && /\.js$/.test(file) && fs.statSync(fullpath).isFile()) {
+			logger.info('wrapping ' + file + '...');
 			wrapFile(file, fullpath);
 		}
 	});
