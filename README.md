@@ -75,6 +75,15 @@ Get the full path resolved path to a module.
 require.resolve('/foo/bar.js') === require.resolve('/.././foo/../foo/bar');
 ```
 
+### require.main
+
+Every require function now has a reference to the main module (app.js)
+
+#### /foo/bar.js
+```js
+require.main.id === '.' && require.main.filename === '/app.js'
+```
+
 ### load module with or without extensions
 
 ```js
