@@ -77,7 +77,7 @@ require.resolve('/foo/bar.js') === require.resolve('/.././foo/../foo/bar');
 
 ### require.main
 
-Every require function now has a reference to the main module (app.js)
+Every require function now has a reference to the main module (app.js). Full details [here](http://nodejs.org/api/modules.html#modules_accessing_the_main_module).
 
 #### /foo/bar.js
 ```js
