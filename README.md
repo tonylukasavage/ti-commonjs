@@ -67,6 +67,16 @@ var foo = require('/foo');
 var bar = require('/bar');
 ```
 
+### loading JSON files
+
+You can now load JSON files simply with `require()`.
+
+```js
+console.log(require('/package.json').main);
+
+// prints "./lib/ti-node-require.js"
+```
+
 ### require.resolve()
 
 Get the full path resolved path to a module.
@@ -196,6 +206,6 @@ module.exports = function() {
 
 ### What are the caveats?
 
-* `.json` files are not yet supported.
+* `module.parent` cannot be supported since the underlying Titanium `require()` provides no means to assign a parent to a module. To be able to support this, a change would be required in Titanium. Fortunately, this is rarely used.
 * This implementation does not load modules with the `.node` extension, as those are for node.js compiled addon modules, which make no sense in the context of Titanium.
 * `ti-node-require.js` does not load from global folders (i.e., `$HOME/.node_modules`), as they are not relevant to mobile app distributions.
