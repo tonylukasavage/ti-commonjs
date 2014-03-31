@@ -35,9 +35,13 @@ function wrapFile(file, fullpath) {
 	if (file === 'app.js') {
 		code += 'var module={exports:{}};';
 		code += 'var exports = module.exports;';
+		code += 'tirequire.main=module;';
+		code += 'module.id=".";';
+	} else {
+		code += 'module.id=__filename;';
 	}
+
 	code += 'module.loaded=false;';
-	code += 'module.id=__filename.replace(/\\.(?:js|json)$/,"");';
 	code += 'module.filename=__filename;';
 	code += 'module.parent={};';
 	code += 'module.children=[];';
