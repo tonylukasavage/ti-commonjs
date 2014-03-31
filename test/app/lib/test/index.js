@@ -72,7 +72,12 @@ describe('ti-node-require', function() {
 			testFoobar(require('/modules/foo/bar.js'));
 		});
 
-		it('should load modules via absolute paths with json extension');
+		it('should load modules via absolute paths with json extension', function() {
+			require('/package.json').dependencies.underscore.should.be.a.String;
+			require('/package').dependencies.underscore.should.be.a.String;
+			require('/modules/1/package.json').main.should.equal('./2/twoModule.js');
+			require('/modules/1/package').main.should.equal('./2/twoModule.js');
+		});
 
 		it('should load modules via relative paths with no extension', function() {
 			testQuux(require('../modules/quux'));
@@ -92,7 +97,12 @@ describe('ti-node-require', function() {
 			testFoobar(require(CRAZY_PATH + '.js'));
 		});
 
-		it('should load modules via relative paths with json extension');
+		it('should load modules via relative paths with json extension', function() {
+			require('../package.json').dependencies.underscore.should.be.a.String;
+			require('../package').dependencies.underscore.should.be.a.String;
+			require('../modules/1/package.json').main.should.equal('./2/twoModule.js');
+			require('../modules/1/package').main.should.equal('./2/twoModule.js');
+		});
 
 		it('should load folder as module via package.json', function() {
 			var twoModule = require('../modules/1');
