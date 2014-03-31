@@ -9,6 +9,10 @@ describe('app.js', function() {
 		module.id.should.equal('.');
 	});
 
+	it('should have a null "module.parent"', function() {
+		should.equal(module.parent, null);
+	});
+
 	it('should have a valid list in "require.paths"', function() {
 		should.exist(require.paths);
 		require.paths.should.eql([

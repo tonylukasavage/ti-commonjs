@@ -210,12 +210,8 @@ describe('ti-node-require', function() {
 			module.loaded.should.be.Boolean;
 		});
 
-		it('"module.parent" should be an object', function() {
-			should.exist(module.parent);
-			module.parent.should.be.an.Object;
-		});
-
 		// https://github.com/tonylukasavage/ti-node-require/issues/5
+		it('"module.parent" should be an object');
 		it('"module.parent" should equal parent module object');
 
 		it('"module.children" should be an array', function() {
