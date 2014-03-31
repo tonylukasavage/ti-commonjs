@@ -50,7 +50,7 @@ function wrapFile(file, fullpath) {
 
 	// This is a hack to fix alloy-based requires. Rather than changing the format of the path
 	// to comply with ti-node-require.js, I simple have it continue to use the Titanium
-	// require() via tirequire().
+	// require() via tirequire(). This should eventually be handled in Alloy itself.
 	code += content.replace(/require\((['"])alloy/g, 'tirequire($1alloy');
 
 	code += '\nmodule.loaded=true;})(require,"' + path.dirname(filename) + '","' + filename + '");';

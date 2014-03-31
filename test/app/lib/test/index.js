@@ -135,17 +135,28 @@ describe('ti-node-require', function() {
 			testThrow('../modules/foo/bar.json');
 		});
 
-		it('"require.main" should be an object');
-		// it('"require.main" should be an object', function() {
-		//	should.exist(require.main);
-		//	require.main.should.be.an.Object;
-		// });
+		it('"require.main" should be an object', function() {
+			should.exist(require.main);
+			require.main.should.be.an.Object;
+		});
 
-		it('"require.main" should be equal to the main module (app.js)');
-		// it('"require.main" should be equal to the main module (app.js)', function() {
-		//	should.exist(require.main);
-		//	require.main.should.equal(require('/app'));
-		// });
+		it('"require.main" should be equal to the main module (app.js)', function() {
+			should.exist(require.main);
+
+			// apparently I need to wrap these with should() since require.main points
+			// to tirequire.main, and since tirequire is a proxy, should.js cannot
+			// automatically attach its properties and functions
+			should(require.main.id).equal('.');
+			should(require.main.filename).equal('/app.js');
+		});
+
+		it('should have a valid list in "require.paths"', function() {
+			should.exist(require.paths);
+			require.paths.should.eql([
+				'/test/node_modules',
+				'/node_modules'
+			]);
+		});
 
 		it('handles nested dependencies', function() {
 			var str = require('fake_module')();
