@@ -128,12 +128,37 @@ require('/foo') === tirequire('foo')
 
 ## FAQ
 
+* [Why is this so cool?](#why-is-this-so-cool)
 * [Should I use ti-commonjs.js?](#should-i-use-ti-commonjsjs)
 * [How does it work?](#how-does-it-work)
 * Why is this solution so complicated?
 	* [Why can't I just create a new `require` variable?](#why-cant-i-just-create-a-new-require-variable)
 	* [Why can't I just override `require()` in my app.js?](#why-cant-i-just-override-require-in-my-appjs)
 * [What are the caveats?](#what-are-the-caveats)
+
+### Why is this so cool?
+
+Because now you can start leveraging the power of node.js and npm package management in your Alloy apps.
+
+```bash
+$ npm install --prefix ./app/lib ti-mocha should underscore
+```
+
+#### alloy.js
+```js
+var should = require('should/should'), // require the broswer-compatible version in should
+	_ = require('underscore');
+require('ti-mocha');
+
+describe('ti-commonjs', function() {
+	it('should work', function() {
+		_.each([1,2,3], function(num) {
+			num.should.equal(num);
+		});
+	});
+});
+mocha.run();
+```
 
 ### Should I use `ti-commonjs.js`?
 
