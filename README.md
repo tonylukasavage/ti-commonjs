@@ -5,7 +5,7 @@ Node.js-style `require()` in Appcelerator Titanium via Alloy. For full details o
 ## Requirements
 
 * [Titanium SDK 3.0+](http://www.appcelerator.com/titanium/titanium-sdk/)
-* Alloy 1.3+ (`npm install -g alloy`)
+* Alloy 1.3+ -> `npm install -g alloy`
 
 It is distinctly possible that `ti-commonjs` will work with earlier versions of both Titanim and Alloy, but they are untested and unsupported.
 
