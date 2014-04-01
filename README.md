@@ -6,13 +6,13 @@ Node.js-style `require()` in Appcelerator Titanium via Alloy. For full details o
 
 ## Install [![NPM version](https://badge.fury.io/js/ti-node-require.png)](http://badge.fury.io/js/ti-node-require)
 
-Execute the following in your project's root folder.
+Assuming you're in your Alloy project's root folder (not the `app` folder):
 
-```
-npm install ti-node-require
+```bash
+npm install ti-node-require --prefix ./app/lib
 ```
 
-It will install the `ti-node-require.js` module in your application, as well as the `alloy.jmk` file (or modifications to existing alloy.jmk) necessary to post-process your generated runtime files. Check out the section below to see how this changes and improves `require()` in your Titanium apps.
+Aside from installing `ti-node-require`, this will also add the `alloy.jmk` file (or modifications to existing `alloy.jmk`) necessary to post-process your generated runtime files.
 
 ## Usage
 

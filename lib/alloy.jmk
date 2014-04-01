@@ -1,12 +1,9 @@
-// CAN'T USE WRENCH
-var wrench = require('wrench'),
-	fs = require('fs'),
-	path = require('path');
-
-var NAME = 'ti-node-require.js';
-var NODE_MODULES_REGEX = /(?:^|\/)node_modules/;
 
 task('post:compile', function(config, logger){
+	var wrench = require('wrench'),
+		fs = require('fs'),
+		path = require('path');
+
 	var platformDir = config.alloyConfig.platform === 'ios' ? 'iphone' : config.alloyConfig.platform;
 	var srcDir = path.join(config.dir.resources, platformDir);
 	var files = wrench.readdirSyncRecursive(srcDir);
@@ -21,6 +18,9 @@ task('post:compile', function(config, logger){
 });
 
 function wrapFile(file, fullpath) {
+	var fs = require('fs'),
+		path = require('path');
+
 	var filename = '/' + file,
 		wrapperBase = '(function(tirequire,__dirname,__filename){',
 		content = fs.readFileSync(fullpath, 'utf8'),

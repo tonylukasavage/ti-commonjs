@@ -20,6 +20,10 @@
     "node": ">=0.10"
   },
   "license": "MIT",
+  "scripts": {
+    "test": "grunt",
+    "install": "node ./scripts/install.js"
+  },
   "keywords": [
     "titanium",
     "appcelerator",
