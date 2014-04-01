@@ -224,18 +224,9 @@ describe('ti-node-require', function() {
 		it('"module.parent" should be an object');
 		it('"module.parent" should equal parent module object');
 
-		it('"module.children" should be an array', function() {
-			should.exist(module.children);
-			module.children.should.be.an.Array;
-		});
-
-		// https://github.com/tonylukasavage/ti-node-require/issues/6
+		// https://github.com/tonylukasavage/ti-node-require/issues/14
+		it('"module.children" should be an array');
 		it('"module.children" should contain an array of modules required from this module');
-		// it('"module.children" should contain an array of modules required from this module', function() {
-		//	for (var i = 0; i < module.children.length; i++) {
-		//		console.log('id: ' + module.children[i].id);
-		//	}
-		// });
 
 	});
 
