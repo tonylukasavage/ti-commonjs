@@ -10,7 +10,7 @@ task('post:compile', function(config, logger){
 
 	files.forEach(function(file) {
 		var fullpath = path.join(srcDir, file);
-		if (!/ti\-node\-require\.js$/.test(file) && /\.js$/.test(file) && fs.statSync(fullpath).isFile()) {
+		if (!/ti\-commonjs\.js$/.test(file) && /\.js$/.test(file) && fs.statSync(fullpath).isFile()) {
 			logger.info('wrapping ' + file + '...');
 			wrapFile(file, fullpath);
 		}
@@ -43,12 +43,12 @@ function wrapFile(file, fullpath) {
 
 	code += 'module.loaded=false;';
 	code += 'module.filename=__filename;';
-	code += 'var require=tirequire("node_modules/ti-node-require/lib/ti-node-require")(__dirname,module);';
+	code += 'var require=tirequire("node_modules/ti-commonjs/lib/ti-commonjs")(__dirname,module);';
 	code += 'module.require=require;';
 
 	// This is a hack to fix alloy-based requires. Rather than changing the format of the path
-	// to comply with ti-node-require.js, I simple have it continue to use the Titanium
-	// require() via tirequire(). This should eventually be handled in Alloy itself.
+	// to comply with ti-commonjs.js, I simple have it continue to use the Titanium require()
+	// via tirequire(). This should eventually be handled in Alloy itself.
 	code += content.replace(/require\((['"])alloy/g, 'tirequire($1alloy');
 
 	code += '\nmodule.loaded=true;})(require,"' + path.dirname(filename) + '","' + filename + '");';

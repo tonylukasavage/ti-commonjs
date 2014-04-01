@@ -1,16 +1,16 @@
-# ti-node-require [![Appcelerator Titanium](http://www-static.appcelerator.com/badges/alloy-git-badge-sq.png)](http://www.appcelerator.com/titanium/alloy/) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/) [![Gittip](http://img.shields.io/gittip/Tony%20Lukasavage.png)](https://www.gittip.com/Tony%20Lukasavage/)
+# ti-commonjs [![Appcelerator Titanium](http://www-static.appcelerator.com/badges/alloy-git-badge-sq.png)](http://www.appcelerator.com/titanium/alloy/) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/) [![Gittip](http://img.shields.io/gittip/Tony%20Lukasavage.png)](https://www.gittip.com/Tony%20Lukasavage/)
 
-Node.js-style `require()` in Appcelerator Titanium via Alloy. For full details on what exactly this means, check out Node.js's own [documentation on modules](http://nodejs.org/api/modules.html). In addition to this added functionality, `ti-node-require.js` also eliminates _all_ platform-specific disparities in Titanium's CommonJS implementation.
+Node.js-style `require()` in Appcelerator Titanium via Alloy. For full details on what exactly this means, check out Node.js's own [documentation on modules](http://nodejs.org/api/modules.html). In addition to this added functionality, `ti-commonjs.js` also eliminates _all_ platform-specific disparities in Titanium's CommonJS implementation.
 
-## Install [![NPM version](https://badge.fury.io/js/ti-node-require.png)](http://badge.fury.io/js/ti-node-require)
+## Install [![NPM version](https://badge.fury.io/js/ti-commonjs.png)](http://badge.fury.io/js/ti-commonjs)
 
 Assuming you're in your Alloy project's root folder (not the `app` folder):
 
 ```bash
-npm install ti-node-require --prefix ./app/lib
+npm install ti-commonjs --prefix ./app/lib
 ```
 
-Aside from installing `ti-node-require`, this will also add the `alloy.jmk` file (or modifications to existing alloy.jmk) necessary to post-process your generated runtime files. Read [here](http://docs.appcelerator.com/titanium/latest/#!/guide/Build_Configuration_File_(alloy.jmk)) for more details on alloy.jmk files.
+Aside from installing `ti-commonjs`, this will also add the `alloy.jmk` file (or modifications to existing alloy.jmk) necessary to post-process your generated runtime files. Read [here](http://docs.appcelerator.com/titanium/latest/#!/guide/Build_Configuration_File_(alloy.jmk)) for more details on alloy.jmk files.
 
 ## Usage
 
@@ -72,7 +72,7 @@ You can now load JSON files simply with `require()`.
 ```js
 console.log(require('/package.json').main);
 
-// prints "./lib/ti-node-require.js"
+// prints "./lib/ti-commonjs.js"
 ```
 
 ### require.resolve()
@@ -100,7 +100,7 @@ require('/foo') === require('/foo.js')
 
 ### "module" object
 
-Titanium's implementation gives limited access to the properties of the `module` object. With `ti-node-require.js` you have full access to the following properties and functions. Full details [here](http://nodejs.org/api/modules.html#modules_the_module_object).
+Titanium's implementation gives limited access to the properties of the `module` object. With `ti-commonjs.js` you have full access to the following properties and functions. Full details [here](http://nodejs.org/api/modules.html#modules_the_module_object).
 
 * [module.exports](http://nodejs.org/api/modules.html#modules_module_exports)
 * [exports](http://nodejs.org/api/modules.html#modules_exports_alias)
@@ -121,23 +121,23 @@ require('/foo') === tirequire('foo')
 
 ## FAQ
 
-* [Should I use ti-node-require.js?](#should-i-use-ti-node-requirejs)
+* [Should I use ti-commonjs.js?](#should-i-use-ti-commonjsjs)
 * [How does it work?](#how-does-it-work)
 * Why is this solution so complicated?
 	* [Why can't I just create a new `require` variable?](#why-cant-i-just-create-a-new-require-variable)
 	* [Why can't I just override `require()` in my app.js?](#why-cant-i-just-override-require-in-my-appjs)
 * [What are the caveats?](#what-are-the-caveats)
 
-### Should I use `ti-node-require.js`?
+### Should I use `ti-commonjs.js`?
 
 #### cons
 
-* It will probably break your existing Titanium code. The primary reason for this is fundamental difference in specifying absolute paths with Titanium's `require()` vs. `ti-node-require.js`. This example illustrates, assuming that a module exists at `Resources/foo/bar.js`:
+* It will probably break your existing Titanium code. The primary reason for this is fundamental difference in specifying absolute paths with Titanium's `require()` vs. `ti-commonjs.js`. This example illustrates, assuming that a module exists at `Resources/foo/bar.js`:
 ```js
 // This is how it's done with Titanium's require()
 require('foo/bar');
 
-// and this is how its done with ti-node-require.js
+// and this is how its done with ti-commonjs.js
 require('/foo/bar');
 ```
 
@@ -152,14 +152,14 @@ require('/foo/bar');
 
 ### How does it work?
 
-`ti-node-require.js` overides the existing Titanium `require()` to have node.js-style functionality. It sits directly on top of Titanium's existing module implementation so all module caching is preserved, no wheels are re-invented. It does this by invoking the main `ti-node-require` function with the current `__dirname` then returns a curried function as the new `require()`.
+`ti-commonjs.js` overides the existing Titanium `require()` to have node.js-style functionality. It sits directly on top of Titanium's existing module implementation so all module caching is preserved, no wheels are re-invented. It does this by invoking the main `ti-commonjs` function with the current `__dirname` then returns a curried function as the new `require()`.
 
 To truly make the usage seamless, though, your generated Javascript files need a CommonJS wrapper, much like is done in the underlying engine itself. The wrapper looks like this:
 
 **app.js**
 ```js
 (function(_require,__dirname,__filename) {
-	var require = _require('ti-node-require')(__dirname);
+	var require = _require('ti-commonjs')(__dirname);
 
 	// your code..
 
@@ -171,7 +171,7 @@ To truly make the usage seamless, though, your generated Javascript files need a
 Because you'd be conflicting with the `require` already in the scope of every module.
 
 ```js
-var require = require('ti-node-require'); // CONFLICT with global require
+var require = require('ti-commonjs'); // CONFLICT with global require
 ```
 
 ### Why can't I just override `require()` in my app.js?
@@ -180,7 +180,7 @@ I should just be able to take advantage of Titanium's scoping with respect to th
 
 **app.js**
 ```js
-require = require('ti-node-require');
+require = require('ti-commonjs');
 require('/1/2/3/threeModule')();
 ```
 
@@ -206,4 +206,4 @@ module.exports = function() {
 
 * `module.parent` and `module.children` cannot be supported since the underlying Titanium `require()` provides no means to get them or assign them to a module. To be able to support this, a change would be required in Titanium. Fortunately, these are rarely used.
 * This implementation does not load modules with the `.node` extension, as those are for node.js compiled addon modules, which make no sense in the context of Titanium.
-* `ti-node-require.js` does not load from global folders (i.e., `$HOME/.node_modules`), as they are not relevant to mobile app distributions.
+* `ti-commonjs.js` does not load from global folders (i.e., `$HOME/.node_modules`), as they are not relevant to mobile app distributions.

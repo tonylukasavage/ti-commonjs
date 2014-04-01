@@ -3,7 +3,7 @@ var exec = require('child_process').exec,
 	path = require('path'),
 	wrench = require('wrench');
 
-var NAME = 'ti-node-require',
+var NAME = 'ti-commonjs',
 	TMP_DIR = 'tmp';
 
 module.exports = function(grunt) {
@@ -73,7 +73,7 @@ module.exports = function(grunt) {
 			assetsDir = path.join(dstDir, 'assets'),
 			tmpAssetsDir = path.join(TMP_DIR, 'assets'),
 			libDir = path.join(dstDir, 'lib'),
-			tnrDir = path.join(libDir, 'node_modules', 'ti-node-require', 'lib');
+			tnrDir = path.join(libDir, 'node_modules', NAME, 'lib');
 
 		// copy app source files
 		grunt.log.write('Preparing test app at "%s"...', dstDir);

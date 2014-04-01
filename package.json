@@ -1,9 +1,9 @@
 {
-  "name": "ti-node-require",
+  "name": "ti-commonjs",
   "version": "0.0.1",
   "description": "Node.js style require() in Titanium via Alloy",
   "bugs": {
-    "url": "https://github.com/tonylukasavage/ti-node-require/issues",
+    "url": "https://github.com/tonylukasavage/ti-commonjs/issues",
     "email": "anthony.lukasavage@gmail.com"
   },
   "author": {
@@ -13,9 +13,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/tonylukasavage/ti-node-require.git"
+    "url": "git://github.com/tonylukasavage/ti-commonjs.git"
   },
-  "main": "./lib/ti-node-require.js",
+  "main": "./lib/ti-commonjs.js",
   "engines": {
     "node": ">=0.10"
   },
