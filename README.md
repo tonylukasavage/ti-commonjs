@@ -2,6 +2,13 @@
 
 Node.js-style `require()` in Appcelerator Titanium via Alloy. For full details on what exactly this means, check out Node.js's own [documentation on modules](http://nodejs.org/api/modules.html). In addition to this added functionality, `ti-commonjs.js` also eliminates _all_ platform-specific disparities in Titanium's CommonJS implementation.
 
+## Requirements
+
+* Titanium SDK 3.0+
+* Alloy 1.3+
+
+It is distinctly possible that `ti-commonjs` will work with earlier versions of both Titanim and Alloy, but they are untested and unsupported.
+
 ## Install [![NPM version](https://badge.fury.io/js/ti-commonjs.png)](http://badge.fury.io/js/ti-commonjs)
 
 Assuming you're in your Alloy project's root folder (not the `app` folder):
