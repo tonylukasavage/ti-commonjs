@@ -12,7 +12,7 @@ Assuming you're in your Alloy project's root folder (not the `app` folder):
 npm install ti-node-require --prefix ./app/lib
 ```
 
-Aside from installing `ti-node-require`, this will also add the `alloy.jmk` file (or modifications to existing `alloy.jmk`) necessary to post-process your generated runtime files.
+Aside from installing `ti-node-require`, this will also add the `alloy.jmk` file (or modifications to existing alloy.jmk) necessary to post-process your generated runtime files. Read [here](http://docs.appcelerator.com/titanium/latest/#!/guide/Build_Configuration_File_(alloy.jmk)) for more details on alloy.jmk files.
 
 ## Usage
 
