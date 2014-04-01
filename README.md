@@ -100,7 +100,7 @@ require.main.id === '.' && require.main.filename === '/app.js'
 require('/foo') === require('/foo.js')
 ```
 
-### `module` object
+### "module" object
 
 Titanium's implementation gives limited access to the properties of the `module` object. With `ti-node-require.js` you have full access to the following properties and functions. Full details [here](http://nodejs.org/api/modules.html#modules_the_module_object).
 
@@ -178,7 +178,7 @@ var require = require('ti-node-require'); // CONFLICT with global require
 
 ### Why can't I just override `require()` in my app.js?
 
-I should just be able to take advantage of Titanium's scoping with respect to the app.js file and have `require()` overridden everywhere, right? Well, you're right, but that's where the problem lies. The issue is that `require()` needs to be executed relative to the current file's directory when it comes to relative paths. Globally overriding `require()`, though, will make all relative paths relative to `Resources`. Let me demonstrate.
+I should just be able to take advantage of Titanium's scoping with respect to the app.js file and have `require()` overridden everywhere, right? Well, you're right, but that's where the problem lies. The issue is that `require()` needs to be executed relative to the current file's directory when it comes to relative paths. This is further compounded by properties like `require.paths`. Globally overriding `require()`, though, will make all paths relative to `Resources`. Let me demonstrate.
 
 **app.js**
 ```js
