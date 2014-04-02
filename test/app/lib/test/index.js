@@ -1,7 +1,8 @@
 var should = require('should/should');
 require('ti-mocha');
 
-var CRAZY_PATH = '../../../../././../modules/.././modules/foo/../foo/./bar';
+var CRAZY_PATH = '../../../../././../modules/.././modules/foo/../foo/./bar',
+	isAndroid = Ti.Platform.osname === 'android';
 
 function testQuux(o) {
 	should.exist(o);
@@ -195,12 +196,13 @@ describe('module', function() {
 		module.require.should.be.a.Function;
 	});
 
-	it('"module.require()" should equal this module\'s "require"', function() {
+	var maybeIt = isAndroid ? it.skip : it;
+	maybeIt('"module.require()" should equal this module\'s "require"', function() {
 		should.exist(module.require);
 		module.require.should.equal(require);
 	});
 
-	it('"module.require()" should require modules as though called from this module', function() {
+	maybeIt('"module.require()" should require modules as though called from this module', function() {
 		should.exist(module.require);
 		var mod = require('../modules/moduleRequire');
 		should.exist(mod);
@@ -218,13 +220,28 @@ describe('module', function() {
 		module.loaded.should.be.Boolean;
 	});
 
-	// https://github.com/tonylukasavage/ti-commonjs/issues/5
-	it('"module.parent" should be an object');
-	it('"module.parent" should equal parent module object');
+	describe.skip('unimplemented', function() {
 
-	// https://github.com/tonylukasavage/ti-commonjs/issues/14
-	it('"module.children" should be an array');
-	it('"module.children" should contain an array of modules required from this module');
+		// https://github.com/tonylukasavage/ti-commonjs/issues/5
+		it('"module.parent" should be an object', function() {
+			should.exist(module.parent);
+			module.loaded.should.be.Object;
+		});
+
+		it('"module.parent" should equal parent module object', function() {
+			should.exist(module.parent);
+			should.exist(require.main);
+			module.parent.should.equal(require.main);
+		});
+
+		// https://github.com/tonylukasavage/ti-commonjs/issues/14
+		it('"module.children" should be an array', function() {
+			should.exist(module.parent);
+			module.loaded.should.be.Array;
+		});
+
+		it('"module.children" should contain an array of modules required from this module');
+	});
 
 });
 
