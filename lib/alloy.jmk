@@ -35,7 +35,7 @@ function wrapFile(file, fullpath) {
 	if (file === 'app.js') {
 		code += 'var module={exports:{}};';
 		code += 'var exports = module.exports;';
-		code += 'tirequire.main=module;';
+		code += '__mainModule=module;';
 		code += 'module.id=".";';
 	} else {
 		code += 'module.id=__filename;';
