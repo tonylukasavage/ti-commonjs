@@ -4,7 +4,8 @@ task('post:compile', function(config, logger){
 		fs = require('fs'),
 		path = require('path');
 
-	var platformDir = config.alloyConfig.platform === 'ios' ? 'iphone' : config.alloyConfig.platform;
+	var platform = config.alloyConfig.platform;
+	var platformDir = platform === 'ios' ? 'iphone' : config.alloyConfig.platform;
 	var srcDir = path.join(config.dir.resources, platformDir);
 	var files = wrench.readdirSyncRecursive(srcDir);
 
@@ -12,12 +13,12 @@ task('post:compile', function(config, logger){
 		var fullpath = path.join(srcDir, file);
 		if (!/ti\-commonjs\.js$/.test(file) && /\.js$/.test(file) && fs.statSync(fullpath).isFile()) {
 			logger.info('wrapping ' + file + '...');
-			wrapFile(file, fullpath);
+			wrapFile(file, fullpath, platform);
 		}
 	});
 });
 
-function wrapFile(file, fullpath) {
+function wrapFile(file, fullpath, platform) {
 	var fs = require('fs'),
 		path = require('path');
 
@@ -44,7 +45,13 @@ function wrapFile(file, fullpath) {
 	code += 'module.loaded=false;';
 	code += 'module.filename=__filename;';
 	code += 'var require=tirequire("node_modules/ti-commonjs/lib/ti-commonjs")(__dirname,module);';
-	code += 'module.require=require;';
+
+	if (platform === 'android') {
+		// doesn't support overriding module.require
+		// https://github.com/tonylukasavage/ti-commonjs/issues/19
+	} else {
+		code += 'module.require=require;';
+	}
 
 	// This is a hack to fix alloy-based requires. Rather than changing the format of the path
 	// to comply with ti-commonjs.js, I simple have it continue to use the Titanium require()
