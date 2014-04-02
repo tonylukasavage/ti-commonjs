@@ -19,6 +19,7 @@
 	"-W104": true,
 	"-W068": true,
 	"globals": {
+		"alert": false,
 		"task": false,
 		"Ti": false,
 		"Titanium": false,
