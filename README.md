@@ -4,10 +4,15 @@ Node.js-style CommonJS in Appcelerator Titanium via Alloy. For full details on w
 
 ## Requirements
 
-* [Titanium SDK 3.0+](http://www.appcelerator.com/titanium/titanium-sdk/)
+* [Titanium SDK 3.2+](http://www.appcelerator.com/titanium/titanium-sdk/)
 * Alloy 1.3+ ➜ `npm install -g alloy`
 
 It is distinctly possible that `ti-commonjs` will work with earlier versions of both Titanim and Alloy, but they are untested and unsupported.
+
+## Supports
+
+* Android
+* iOS
 
 ## Install [![NPM version](https://badge.fury.io/js/ti-commonjs.png)](http://badge.fury.io/js/ti-commonjs)
 
