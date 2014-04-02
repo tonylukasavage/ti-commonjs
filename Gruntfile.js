@@ -72,8 +72,7 @@ module.exports = function(grunt) {
 			dstDir = path.join(TMP_DIR, 'app'),
 			assetsDir = path.join(dstDir, 'assets'),
 			tmpAssetsDir = path.join(TMP_DIR, 'assets'),
-			libDir = path.join(dstDir, 'lib'),
-			tnrDir = path.join(libDir, 'node_modules', NAME, 'lib');
+			libDir = path.join(dstDir, 'lib');
 
 		// copy app source files
 		grunt.log.write('Preparing test app at "%s"...', dstDir);
@@ -81,22 +80,24 @@ module.exports = function(grunt) {
 		wrench.copyDirSyncRecursive(srcDir, dstDir, { forceDelete: true });
 		fs.renameSync(tmpAssetsDir, assetsDir);
 
-		// copy in lib and jmk
-		wrench.mkdirSyncRecursive(tnrDir, 0755);
-		copyFileSync(path.join('lib', NAME + '.js'), path.join(tnrDir, NAME + '.js'));
-		copyFileSync(path.join('lib', 'alloy.jmk'), path.join(dstDir, 'alloy.jmk'));
-		grunt.log.ok();
-
-		// run npm install
-		exec('cd "' + libDir + '" && npm install', function(err, stdout, stderr) {
+		// do ti-commonjs install
+		exec('cd "' + TMP_DIR + '" && npm install --prefix ./app/lib ..', function(err, stdout, stderr) {
 			if (err) {
 				return done(err);
 			}
 
-			// copy in the fake module
-			var fakeModuleDir = path.join(libDir, 'node_modules', 'fake_module');
-			wrench.copyDirSyncRecursive(path.join('test', 'fake_module'), fakeModuleDir);
-			done();
+			// run npm install on lib package.json
+			exec('cd "' + libDir + '" && npm install', function(err, stdout, stderr) {
+				if (err) {
+					return done(err);
+				}
+
+				// copy in the fake module
+				var fakeModuleDir = path.join(libDir, 'node_modules', 'fake_module');
+				wrench.copyDirSyncRecursive(path.join('test', 'fake_module'), fakeModuleDir);
+				grunt.log.ok();
+				done();
+			});
 		});
 
 	});
