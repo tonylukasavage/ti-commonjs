@@ -111,7 +111,7 @@ Titanium's implementation gives limited access to the properties of the `module`
 
 * [module.exports](http://nodejs.org/api/modules.html#modules_module_exports)
 * [exports](http://nodejs.org/api/modules.html#modules_exports_alias)
-* [module.require(id)](http://nodejs.org/api/modules.html#modules_module_require_id)
+* [module.require(id)](http://nodejs.org/api/modules.html#modules_module_require_id) (_not supported on Android_)
 * [module.id](http://nodejs.org/api/modules.html#modules_module_id)
 * [module.filename](http://nodejs.org/api/modules.html#modules_module_filename)
 * [module.loaded](http://nodejs.org/api/modules.html#modules_module_loaded)
@@ -237,5 +237,6 @@ module.exports = function() {
 ### What are the caveats?
 
 * `module.parent` and `module.children` cannot be supported since the underlying Titanium `require()` provides no means to get them or assign them to a module. To be able to support this, a change would be required in Titanium. Fortunately, these are rarely used.
+* `module.require` is not supported on Android. Details [here](https://github.com/tonylukasavage/ti-commonjs/issues/19).
 * This implementation does not load modules with the `.node` extension, as those are for node.js compiled addon modules, which make no sense in the context of Titanium.
 * `ti-commonjs.js` does not load from global folders (i.e., `$HOME/.node_modules`), as they are not relevant to mobile app distributions.
