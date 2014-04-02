@@ -33,7 +33,7 @@
   ],
   "devDependencies": {
     "grunt": "~0.4.2",
-    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-contrib-jshint": "~0.10.0",
     "grunt-contrib-clean": "~0.5.0",
     "wrench": "~1.5.8",
     "grunt-titanium": "~0.1.0",
