@@ -42,7 +42,9 @@ module.exports = function(grunt) {
 				options: {
 					command: 'build',
 					projectDir: TMP_DIR,
-					logLevel: 'info'
+					logLevel: 'info',
+					//platform: 'android',
+					//target: 'device'
 				}
 			}
 		},
