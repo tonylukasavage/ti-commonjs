@@ -39,5 +39,8 @@
     "grunt-titanium": "~0.1.0",
     "grunt-alloy": "~0.1.0",
     "should": "~3.2.0-beta1"
+  },
+  "dependencies": {
+    "xmldom": "~0.1.19"
   }
 }
