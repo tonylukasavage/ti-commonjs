@@ -11,8 +11,8 @@ It is distinctly possible that `ti-commonjs` will work with earlier versions of 
 
 ## Supports
 
-* Android
-* iOS
+* Android emualtor and device
+* iOS simulator and device
 
 ## Install [![NPM version](https://badge.fury.io/js/ti-commonjs.png)](http://badge.fury.io/js/ti-commonjs)
 
