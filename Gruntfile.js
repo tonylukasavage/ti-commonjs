@@ -42,9 +42,18 @@ module.exports = function(grunt) {
 				options: {
 					command: 'build',
 					projectDir: TMP_DIR,
+					logLevel: 'info'
+				}
+			},
+			buildIos: {
+				options: {
+					command: 'build',
+					projectDir: TMP_DIR,
 					logLevel: 'info',
-					//platform: 'android',
-					//target: 'device'
+					platform: 'ios',
+					target: 'device',
+					developerName: process.env.IOS_DEVELOPER_NAME,
+					ppUuid: process.env.IOS_PP_UUID
 				}
 			}
 		},

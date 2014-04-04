@@ -2,7 +2,12 @@ var should = require('should/should');
 require('ti-mocha');
 
 var CRAZY_PATH = '../../../../././../modules/.././modules/foo/../foo/./bar',
-	isAndroid = Ti.Platform.osname === 'android';
+	isAndroid = Ti.Platform.osname === 'android',
+	isIos = Ti.Platform.name === 'iPhone OS';
+
+if (isIos && Ti.App.deployType !== 'development') {
+	mocha.setup({ reporter: 'ti-spec-studio' });
+}
 
 function testQuux(o) {
 	should.exist(o);
