@@ -1,4 +1,4 @@
-# ti-commonjs [![Appcelerator Titanium](http://www-static.appcelerator.com/badges/alloy-git-badge-sq.png)](http://www.appcelerator.com/titanium/alloy/) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/) [![Gittip](http://img.shields.io/gittip/Tony%20Lukasavage.png)](https://www.gittip.com/Tony%20Lukasavage/)
+# ti-commonjs [![Appcelerator Titanium](http://www-static.appcelerator.com/badges/alloy-git-badge-sq.png)](http://www.appcelerator.com/titanium/alloy/) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/) 
 
 Node.js-style CommonJS in Appcelerator Titanium via Alloy. For full details on what exactly this means, check out Node.js's own [documentation on its CommonJS implementation](http://nodejs.org/api/modules.html). In addition to this added functionality, `ti-commonjs` also eliminates _all_ platform-specific disparities in Titanium's CommonJS implementation.
 
